@@ -1,0 +1,11 @@
+{
+    "blogs": {
+      "username": "postgres",
+      "password": "123456",
+      "database": "blogs",
+      "host": "172.17.0.1",
+      "dialect": "postgres",
+      "port": "1305"
+    }
+  }
+  

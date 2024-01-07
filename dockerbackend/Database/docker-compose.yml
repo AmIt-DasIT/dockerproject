@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  blog_database:
+    image: postgres:14.1
+    container_name: blogs_pg_master
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=qwerty78
+      - POSTGRES_DB=blogs
+    ports:
+      - '1305:5432'
+    volumes:
+      - blog_database:/var/lib/postgresql/data
+volumes:
+  blog_database:
+    driver: local

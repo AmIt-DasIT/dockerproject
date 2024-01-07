@@ -1,0 +1,59 @@
+version: '3.8'
+
+
+
+services:
+
+
+  blog_database:
+    image: postgres:14.1
+    container_name: blogs_pg_master
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=blogs
+    ports:
+      - '1305:5432'
+    volumes:
+      - blog_database:/var/lib/postgresql/data
+    networks:
+      - backend
+
+
+
+  blog_backend:
+    depends_on:
+      - blog_database
+    build: ./dockerbackend
+    restart: unless-stopped
+    ports:
+      - "6868:8080"
+    networks:
+      - backend
+      - frontend
+
+
+
+  blog-ui:
+    depends_on:
+      - blog_backend
+    restart: unless-stopped
+    build:
+      context: ./dockerfrontend
+    ports:
+      - "3100:80"
+    networks:
+      - frontend  
+
+
+
+volumes:
+  blog_database:
+    driver: local
+
+
+
+networks:
+  backend:
+  frontend:
